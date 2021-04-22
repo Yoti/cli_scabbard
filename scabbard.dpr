@@ -29,7 +29,7 @@ begin
   else inFileName:=ParamStr(1);
 
   if (FileExists(inFileName) = False) then begin
-    Console.ForegroundColor:=TConsoleColor(12); // Red
+    Console.ForegroundColor:=TConsoleColor.Red;
     WriteLn('Error: cannot open ' + ExtractFileName(inFileName) + '!');
   end else
 
@@ -40,20 +40,20 @@ begin
         inFS.Seek($80, soFromBeginning); // Fixed offset $80
         outValue:=$01; // Patch $00 -> $01
         inFS.Write(outValue, SizeOf(outValue));
-        Console.ForegroundColor:=TConsoleColor(10); // Green
+        Console.ForegroundColor:=TConsoleColor.Green;
         WriteLn('Knives Chau successfully unlocked!');
       end else begin
-        Console.ForegroundColor:=TConsoleColor(12); // Red
+        Console.ForegroundColor:=TConsoleColor.Red;
         WriteLn('Error: wrong file size!');
       end;
       inFS.Free;
     except
-      Console.ForegroundColor:=TConsoleColor(12); // Red
+      Console.ForegroundColor:=TConsoleColor.Red;
       WriteLn('Error: cannot write ' + ExtractFileName(inFileName) + '!');
     end;
   end;
 
+  {$IFDEF DEBUG}ReadLn;{$ENDIF}
   Console.ForegroundColor:=ForegroundColor;
   SetConsoleTitle(ConsoleTitle);
-  {$IFDEF DEBUG}ReadLn;{$ENDIF}
 end.
